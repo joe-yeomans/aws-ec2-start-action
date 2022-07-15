@@ -1,0 +1,12 @@
+name: 'AWS EC2 Start'
+description: 'Starts an EC2 instance using the AWS Cli'
+branding:
+  icon: 'play'  
+  color: 'blue'
+inputs:
+  instance-id:  
+    description: 'Instance ID'
+    required: true    
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
