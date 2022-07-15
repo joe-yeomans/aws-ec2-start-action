@@ -1,12 +1,12 @@
 const core = require('@actions/core');
 const child_process = require('child_process');
 
-const startInstance = (state) => {
+const startInstance = (state, instanceId) => {
     if (state == 'stopping') {
         console.log('Instance is stopping, waiting...');
         setTimeout(() => {
             state = getState(instanceId);
-            startInstance(state);
+            startInstance(state, instanceId);
         }, 15000);
     } else {
         console.log('Instance is starting...');
@@ -23,7 +23,7 @@ const getState = (instanceId) => {
 try {
     const instanceId = core.getInput('instance-id');
     const state = getState(instanceId);
-    startInstance(state);
+    startInstance(state, instanceId);
 } catch (error) {
     core.setFailed(error.message);
 }
