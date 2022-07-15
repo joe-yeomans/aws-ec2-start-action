@@ -2151,14 +2151,6 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(546);
 const child_process = __nccwpck_require__(81);
 
-try {
-    const instanceId = core.getInput('instance-id');
-    const state = getState(instanceId);
-    startInstance(state);
-} catch (error) {
-    core.setFailed(error.message);
-}
-
 const startInstance = (state) => {
     if (state == 'stopping') {
         console.log('Instance is stopping, waiting...');
@@ -2175,6 +2167,14 @@ const getState = (instanceId) => {
     const output = JSON.parse(child_process.execSync(`aws ec2 describe-instances --instance-ids ${instanceId}`).toString());
     const state = output.Reservations[0].Instances[0].State.Name;
     return state;
+}
+
+try {
+    const instanceId = core.getInput('instance-id');
+    const state = getState(instanceId);
+    startInstance(state);
+} catch (error) {
+    core.setFailed(error.message);
 }
 })();
 
