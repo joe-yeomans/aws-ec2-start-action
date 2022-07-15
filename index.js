@@ -9,7 +9,8 @@ const startInstance = (state) => {
             startInstance(state);
         }, 15000);
     } else {
-        console.log('Instance is stopped.');
+        console.log('Instance is starting...');
+        child_process.execSync(`aws ec2 start-instances --instance-ids ${instanceId}`)
     }
 }
 
